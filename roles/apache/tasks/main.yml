@@ -1,11 +1,45 @@
+---
 - name: Install Apache (Fedora)
   dnf:
     name: httpd
     state: present
 
-- name: Enable and start Apache
+- name: Ensure firewalld is installed
+  dnf:
+    name: firewalld
+    state: present
+
+- name: Enable and start firewalld
+  systemd:
+    name: firewalld
+    enabled: yes
+    state: started
+
+- name: Allow HTTP service in firewall (permanent + immediate)
+  ansible.posix.firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: Allow HTTPS service in firewall (permanent + immediate)
+  ansible.posix.firewalld:
+    service: https
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: (optional) Allow SSH through firewall
+  ansible.posix.firewalld:
+    service: ssh
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: Enable and start Apache service
   systemd:
     name: httpd
     enabled: yes
     state: started
+
 
