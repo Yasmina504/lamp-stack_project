@@ -1,0 +1,11 @@
+- name: Install Apache (Fedora)
+  dnf:
+    name: httpd
+    state: present
+
+- name: Enable and start Apache
+  systemd:
+    name: httpd
+    enabled: yes
+    state: started
+

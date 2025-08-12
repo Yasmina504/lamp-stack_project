@@ -1,0 +1,12 @@
+- name: Install PHP and modules
+  dnf:
+    name:
+      - php
+      - php-mysqlnd
+    state: present
+
+- name: Restart Apache after PHP installation
+  systemd:
+    name: httpd
+    state: restarted
+
