@@ -1,8 +1,10 @@
-- name: Install LAMP Stack on Fedora
+---
+- name: Deploy LAMP stack
   hosts: fedora_servers
   become: yes
+
   roles:
     - apache
-    - mysql
     - php
-
+    - mysql
+    - geerlingguy.firewall

@@ -1,0 +1,45 @@
+- name: Ensure firewalld is installed
+  dnf:
+    name: firewalld
+    state: present
+    update_cache: yes
+
+- name: Enable and start firewalld
+  systemd:
+    name: firewalld
+    enabled: yes
+    state: started
+
+- name: Allow SSH service in firewalld
+  firewalld:
+    service: ssh
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: Allow HTTP service in firewalld
+  firewalld:
+    service: http
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: Allow HTTPS service in firewalld
+  firewalld:
+    service: https
+    permanent: yes
+    state: enabled
+    immediate: yes
+
+- name: Reload firewalld
+  firewalld:
+    state: reloaded
+
+- name: Verify firewalld status
+  shell: firewall-cmd --list-all
+  register: firewalld_status
+
+- name: Show firewalld status output
+  debug:
+    var: firewalld_status.stdout
+
