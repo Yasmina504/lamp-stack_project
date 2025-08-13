@@ -1,3 +1,6 @@
+---
+# roles/firewall/tasks/main.yml
+
 - name: Ensure firewalld is installed
   dnf:
     name: firewalld
@@ -32,8 +35,7 @@
     immediate: yes
 
 - name: Reload firewalld
-  firewalld:
-    state: reloaded
+  command: firewall-cmd --reload
 
 - name: Verify firewalld status
   shell: firewall-cmd --list-all

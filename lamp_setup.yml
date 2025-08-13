@@ -4,7 +4,8 @@
   become: yes
 
   roles:
-    - apache
-    - php
-    - mysql
-    - geerlingguy.firewall
+  - apache
+  - php
+  - mysql
+  - firewall
+
